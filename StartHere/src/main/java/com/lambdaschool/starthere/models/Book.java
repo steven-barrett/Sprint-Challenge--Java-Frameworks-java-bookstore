@@ -11,7 +11,7 @@ import java.util.List;
 @ApiModel(value = "Course", description =  "All the courses students can take")
 @Entity
 @Table(name = "book")
-public class Book
+public class Book extends Auditable
 {
     @ApiModelProperty(name = "bookid", value = "primary key for book", required = true, example = "1")
     @Id
