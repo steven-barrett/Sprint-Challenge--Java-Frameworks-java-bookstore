@@ -84,8 +84,13 @@ public class SeedData implements CommandLineRunner
         bookService.save(b3);
 
         Authors a1 = new Authors("King", "Stephen");
+        a1.getBooks().add(b1);
+
         Authors a2 = new Authors("Rowling", "J.K");
+        a2.getBooks().add(b2);
+
         Authors a3 = new Authors("Hemingway", "Ernest");
+        a3.getBooks().add(b3);
 
         authorsService.save(a1);
         authorsService.save(a2);

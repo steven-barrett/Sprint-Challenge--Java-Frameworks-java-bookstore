@@ -1,10 +1,11 @@
 package com.lambdaschool.starthere.controllers;
 
 import com.lambdaschool.starthere.models.Authors;
+import com.lambdaschool.starthere.models.Book;
+import com.lambdaschool.starthere.models.ErrorDetail;
 import com.lambdaschool.starthere.services.AuthorsService;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import com.lambdaschool.starthere.services.BookService;
+import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -27,6 +26,9 @@ public class AuthorsController
 
     @Autowired
     private AuthorsService authorsService;
+
+    @Autowired
+    private BookService bookService;
 
     @ApiOperation(value = "returns all Courses with Paging Ability",
             responseContainer = "List")
@@ -50,6 +52,36 @@ public class AuthorsController
 
         List<Authors> myAuthors = authorsService.findAll(pageable);
         return new ResponseEntity<>(myAuthors, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "Adds an existing book to an existing author",
+            response = void.class)
+    @ApiResponses(value = {@ApiResponse(code = 201,
+            message = "Book Added",
+            response = void.class), @ApiResponse(code = 500,
+            message = "Error adding book to author",
+            response = ErrorDetail.class)})
+    @PostMapping(value = "/addbook/{authorid}/{bookid}")
+    public ResponseEntity<?> addBookToAuthor(HttpServletRequest request,
+                                             @ApiParam(value = "The author id",
+                                                     required = true,
+                                                     example = "1")
+                                             @PathVariable long authorid,
+                                             @ApiParam(value = "The book id",
+                                                     required = true,
+                                                     example = "1")
+                                             @PathVariable long bookid)
+    {
+        logger.info(request.getMethod() + " " + request.getRequestURI() + " accessed");
+
+        // Add the book to the author
+        Book currentBook = bookService.findById(bookid);
+        Authors currentAuthor = authorsService.findById(authorid);
+
+        currentAuthor.getBooks().add(currentBook);
+        authorsService.save(currentAuthor);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

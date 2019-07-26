@@ -9,6 +9,8 @@ public interface BookService
 {
     List<Book> findAll(Pageable pageable);
 
+    Book findById(long id);
+
     Book update(Book book, long id);
 
     Book save (Book book);

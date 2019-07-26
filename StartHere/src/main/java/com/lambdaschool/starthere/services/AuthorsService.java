@@ -10,6 +10,8 @@ public interface AuthorsService
 {
     List<Authors> findAll(Pageable pageable);
 
+    Authors findById(long id);
+
     Authors save (Authors authors);
 
 }

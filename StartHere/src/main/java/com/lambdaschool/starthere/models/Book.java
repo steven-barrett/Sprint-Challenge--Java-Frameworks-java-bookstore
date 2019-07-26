@@ -27,10 +27,8 @@ public class Book extends Auditable
     @ApiModelProperty(name = "copy", value = "copywrite - the year the book was published", required = true, example = "1978")
     private int copy;
 
-    @ManyToMany
-    @JoinTable(name = "bookauthors",
-            joinColumns = {@JoinColumn(name = "bookid")},
-            inverseJoinColumns = {@JoinColumn(name = "authorid")})
+    @ManyToMany(mappedBy = "books",
+            cascade = CascadeType.ALL)
     @JsonIgnoreProperties("books")
     private List<Authors> authors = new ArrayList<>();
 

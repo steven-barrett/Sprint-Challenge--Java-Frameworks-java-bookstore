@@ -24,7 +24,11 @@ public class Authors extends Auditable
     @ApiModelProperty(name = "firstname", value = "Author first name", required = true, example = "Stephen")
     private String firstname;
 
-    @ManyToMany
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "bookauthors",
+            joinColumns = {@JoinColumn(name = "authorid")},
+            inverseJoinColumns = {@JoinColumn(name = "bookid")})
     @JsonIgnoreProperties("authors")
     private List<Book> books = new ArrayList<>();
 

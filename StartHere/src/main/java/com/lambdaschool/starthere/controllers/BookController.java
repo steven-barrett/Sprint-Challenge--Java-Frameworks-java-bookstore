@@ -56,7 +56,7 @@ public class BookController
             message = "Error updating book",
             response = ErrorDetail.class)})
     @PutMapping(value = "/book/{bookid}")
-    public ResponseEntity<?> updateStudent(
+    public ResponseEntity<?> addBookToAuthor(
             HttpServletRequest request,
             @RequestBody
                     Book updateBook,
