@@ -1,9 +1,8 @@
 package com.lambdaschool.starthere;
 
-import com.lambdaschool.starthere.models.Quote;
-import com.lambdaschool.starthere.models.Role;
-import com.lambdaschool.starthere.models.User;
-import com.lambdaschool.starthere.models.UserRoles;
+import com.lambdaschool.starthere.models.*;
+import com.lambdaschool.starthere.services.AuthorsService;
+import com.lambdaschool.starthere.services.BookService;
 import com.lambdaschool.starthere.services.RoleService;
 import com.lambdaschool.starthere.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +22,11 @@ public class SeedData implements CommandLineRunner
     @Autowired
     UserService userService;
 
+    @Autowired
+    BookService bookService;
+
+    @Autowired
+    AuthorsService authorsService;
 
     @Override
     public void run(String[] args) throws Exception
@@ -70,5 +74,21 @@ public class SeedData implements CommandLineRunner
         users.add(new UserRoles(new User(), r2));
         User u5 = new User("Jane", "password", users);
         userService.save(u5);
+
+        Book b1 = new Book("Lord of The Flies", "9781404690301", 1954);
+        Book b2 = new Book("The Catcher in the Rye", "9788970120676", 1951);
+        Book b3 = new Book("Running with Scissors", "9781429902526", 2002);
+
+        bookService.save(b1);
+        bookService.save(b2);
+        bookService.save(b3);
+
+        Authors a1 = new Authors("King", "Stephen");
+        Authors a2 = new Authors("Rowling", "J.K");
+        Authors a3 = new Authors("Hemingway", "Ernest");
+
+        authorsService.save(a1);
+        authorsService.save(a2);
+        authorsService.save(a3);
     }
 }

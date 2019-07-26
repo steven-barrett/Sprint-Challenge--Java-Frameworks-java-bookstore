@@ -9,4 +9,7 @@ import java.util.List;
 public interface AuthorsService
 {
     List<Authors> findAll(Pageable pageable);
+
+    Authors save (Authors authors);
+
 }

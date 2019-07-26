@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@ApiModel(value = "Course", description =  "All the courses students can take")
+@ApiModel(value = "book", description =  "Total list of books")
 @Entity
 @Table(name = "book")
 public class Book extends Auditable

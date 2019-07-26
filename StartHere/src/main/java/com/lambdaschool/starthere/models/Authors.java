@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@ApiModel(value = "Course", description =  "All the courses students can take")
+@ApiModel(value = "authors", description =  "A total list of authors")
 @Entity
 @Table(name = "authors")
 public class Authors extends Auditable
@@ -24,7 +24,7 @@ public class Authors extends Auditable
     @ApiModelProperty(name = "firstname", value = "Author first name", required = true, example = "Stephen")
     private String firstname;
 
-    @ManyToMany(mappedBy = "book")
+    @ManyToMany
     @JsonIgnoreProperties("authors")
     private List<Book> books = new ArrayList<>();
 
